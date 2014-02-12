@@ -1,0 +1,86 @@
+<!doctype html>
+
+<html ng-app="deck-odds">
+  <head>
+    <title>Hypergeometric distribution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/hyper.css" rel="stylesheet" media="screen">
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/math.js"></script>
+    <script src="js/controller.js"></script>
+
+
+  </head>
+  <body>
+    <div ng-controller="Controller" class="container">
+      <h1 class="text-center">Deck odds</h1>
+      <br />
+      <form name="form" class="css-form form-horizontal" novalidate>
+        <!--<div class="form-group">
+          <label for="size" class="col-sm-4 control-label">Total cards in deck?</label>
+          <div class="col-sm-2">
+            <input ng-change="calculate(deck)" type="number" class="form-control" ng-model="deck.size" name="size" integer required />
+          </div>
+        </div>-->
+
+        <div class="form-group">
+          <label for="numChosen" class="col-sm-6 control-label">How many of your card are in the deck?</label>
+          <div class="col-sm-2">
+            <input ng-change="calculate(deck)" type="number" class="form-control" name="numChosen" ng-model="deck.numChosen" required integer />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="drawSize" class="col-sm-6 control-label">How many cards do you draw on your first turn?</label>
+          <div class="col-sm-2">
+            <input ng-change="calculate(deck)" type="number" class="form-control" name="drawSize" ng-model="deck.drawSize" required integer />
+          </div>
+        </div>
+
+        <!--<label for="deck.numInHand">How do you want to check for drawing?</label>
+        <input ng-change="calculate(deck)" type="number" ng-model="deck.numInHand" integer required /><br />-->
+
+        <!--<button ng-click="reset()" ng-disabled="isUnchanged(deck)">Reset</button>
+        <button ng-click="calculate(deck)" ng-disabled="form.$invalid || isUnchanged(deck)">Calculate</button>-->
+      </form>
+      <!--<pre>form = {{deck | json}}</pre>-->
+      <div ng-show="form.$valid">
+        <!--Odds of drawing one or more {{atLeastOneOdds}}<br />
+        Odds of drawing two or more {{atLeastTwoOdds}}<br />-->
+        <!--<pre>{{odds | json}}</pre>-->
+
+        <table class="table">
+          <tr>
+            <th>Turn</th>
+            <th ng-repeat="i in odds.turn[0] track by $index">
+              {{$index}}<span ng-show="!$first">+</span>
+            </th>
+          </tr>
+          <tr ng-repeat="turn in odds.turn track by $index">
+            <th>{{$index+1}}</th>
+            <td ng-repeat="i in turn track by $index">
+              {{i | decimal}}%
+            </td>
+          </tr>
+        </table>
+
+        <!--<div ng-repeat="turn in odds.turn track by $index">
+          <h1>Drawing on turn number {{$index+1}}</h1>
+          <ul>
+            <li ng-repeat="i in turn track by $index">
+              Odds of <span ng-show="$first">not drawing that card</span><span ng-show="!$first">drawing {{$index}} or more</span> {{i | number}}%
+            </li>
+          </ul>
+        </div>-->
+
+      </div>
+    </div>
+
+    <div ng-controller="CardBrowser">
+    </div>
+
+  </body>
+</html>
